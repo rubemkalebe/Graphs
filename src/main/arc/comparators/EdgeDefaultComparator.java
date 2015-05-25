@@ -9,7 +9,7 @@ public class EdgeDefaultComparator implements EdgeComparator {
 	}
 	
 	public int compare(Edge first, Edge second) {
-
+		return 0;
 	}
 
 }

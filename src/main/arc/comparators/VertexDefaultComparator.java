@@ -9,7 +9,7 @@ public class VertexDefaultComparator implements VertexComparator {
 	}
 	
 	public int compare(Vertex first, Vertex second) {
-		
+		return 0;
 	}
 
 }
