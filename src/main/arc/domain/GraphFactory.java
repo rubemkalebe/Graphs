@@ -1,5 +1,7 @@
 package main.arc.domain;
 
-public abstract class GraphFactory {
+public interface GraphFactory {
 
+	public Graph generateGraph();
+	
 }
