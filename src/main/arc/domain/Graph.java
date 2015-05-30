@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.TreeSet;
 
-public abstract class Graph {
+public abstract class Graph implements GraphInterface{
 	protected int verticeNumber;
 //	protected int edgeNumber;
 	protected ArrayList<Vertex> vertices = new ArrayList<Vertex>();
@@ -16,7 +16,7 @@ public abstract class Graph {
 		this.verticeNumber = 0;
 	}
 	
-	public void addVertice(Vertex v) throws Exception{
+	public void addVertex(Vertex v) throws Exception{
 		if(v != null){
 			this.verticeNumber++;
 			this.vertices.add(v);
@@ -25,7 +25,7 @@ public abstract class Graph {
 			throw new Exception("Vertice nulo!");			
 	}
 	
-	public void removeVertice(Vertex v) throws Exception{
+	public void removeVertex(Vertex v) throws Exception{
 		if(this.vertices.contains(v)){
 			this.verticeNumber--;
 			this.vertices.remove(v);
@@ -34,13 +34,13 @@ public abstract class Graph {
 			throw new Exception("Vertice não existe!");
 	}
 	
-	public ArrayList<Vertex> getVertices(){
-		return this.vertices;
+	public void removeVertex(int id) throws IndexOutOfBoundsException{
+		if(this.vertices.get(id) != null){
+				this.verticeNumber--;
+				this.vertices.remove(id);
+		}
+		else
+			throw new IndexOutOfBoundsException();
 	}
-	
-	public int getNumbVertices(){
-		return this.verticeNumber;
-	}
-	
-	public abstract void addEdge(Vertex v1, Vertex v2) throws Exception;
+
 }

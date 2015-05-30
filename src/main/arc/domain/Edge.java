@@ -60,7 +60,7 @@ public class Edge {
 	 * 
 	 * @return true se a aresta for direcionada, false caso contrário.
 	 */
-	public boolean isDirected() {
+	public boolean isEDirected() {
 		return _isDirected;
 	}
 	

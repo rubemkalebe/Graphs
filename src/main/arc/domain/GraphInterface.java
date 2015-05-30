@@ -13,34 +13,37 @@ public interface GraphInterface {
 	/**
 	 * Adiciona um vértice no grafo.
 	 * @param v Vertice a ser adicionado
+	 * @throws Exception 
 	 */
-	public void addVertex(Vertex v);
+	public void addVertex(Vertex v) throws Exception;
 	
 	/**
 	 * Remove um vértice no grafo.
 	 * @param v Vertice a ser removido
+	 * @throws Exception 
 	 */
-	public void removeVertex(Vertex v);
+	public void removeVertex(Vertex v) throws Exception;
 	
 	/**
 	 * Remove um vértice no grafo pelo identificador do mesmo.
 	 * @param id Identificador do vertice a ser removido
 	 */
-	public void removeVertex(int id);
+	public void removeVertex(int id) throws IndexOutOfBoundsException;
 
 	/**
 	 * Conecta dois vértices. Caso algum deles não esteja na estrutura será adicionado.
 	 * @param v1 Vertice de uma extremidade
 	 * @param v2 Vertice de outra extremidade
+	 * @throws Exception 
 	 */
-	public void connectVertices(Vertex v1, Vertex v2);
+	public void connectVertices(Vertex v1, Vertex v2) throws Exception;
 	
 	/**
 	 * Disconecta dois vértices.
 	 * @param v1 Vertice de uma extremidade
 	 * @param v2 Vertice de outra extremidade
 	 */
-	public void disconnectVertices(Vertex v1, Vertex v2);
+	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception;
 	
 	/**
 	 * Remove todas as arestas.
@@ -72,7 +75,4 @@ public interface GraphInterface {
 	 * @return true se os vértices constituem uma aresta, false caso contrário
 	 */
 	public boolean isEdge(Vertex v1, Vertex v2);
-	
-	
-	
 }
