@@ -1,11 +1,18 @@
 package main.arc.domain;
 
+import java.util.HashSet;
+
+import main.arc.iterator.AbstractEdgeIterator;
+import main.arc.iterator.AbstractVertexIterator;
+import main.arc.visitor.PreInPostVisitorInterface;
+import main.arc.visitor.VisitorInterface;
+
 /**
  * Interface para grafos.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 29.05.2015
+ * @version 30.05.2015
  */
 
 public interface GraphInterface {
@@ -69,10 +76,70 @@ public interface GraphInterface {
 	public boolean isDirected();
 	
 	/**
-	 * Verifica se os vértices constituem uma aresta.
+	 * Verifica se os vértices constituem uma aresta, caso estejam na estrutura.
 	 * @param v1 Vertice de uma extremidade
 	 * @param v2 Vertice de outra extremidade
 	 * @return true se os vértices constituem uma aresta, false caso contrário
 	 */
-	public boolean isEdge(Vertex v1, Vertex v2);
+	public boolean isEdge(Vertex v1, Vertex v2) throws Exception;
+	
+	/**
+	 * @return Iterador para percorrer as arestas da estrutura
+	 */
+	public AbstractEdgeIterator createEdgeIterator();
+	
+	/**
+	 * @return Iterador para percorrer os vértices da estrutura
+	 */
+	public AbstractVertexIterator createVertexIterator();
+	
+	/**
+	 * Realiza percurso em largura em toda a estrutura.
+	 * @param vis Visitante
+	 */
+	public void breadthFirstTraversal(VisitorInterface vis);
+	
+	/**
+	 * Realiza percurso em largura a partir de um vértice.
+	 * @param vis Visitante
+	 * @param v Vertice inicial
+	 */
+	public void breadthFirstTraversal(VisitorInterface vis, Vertex v);
+	
+	/**
+	 * Realiza percurso em profundidade em toda a estrutura.
+	 * @param vis Visitante
+	 */
+	public void depthFirstTraversal(PreInPostVisitorInterface vis);
+	
+	/**
+	 * Realiza percurso em profundidade a partir de um vértice.
+	 * @param vis Visitante
+	 * @param v Vertice inicial
+	 */
+	public void depthFirstTraversal(PreInPostVisitorInterface vis, Vertex v);
+	
+	/**
+	 * 
+	 * @return Numero de arestas da estrutura
+	 */
+	public int getEdgesNumber();
+	
+	/**
+	 * @return Numero de vertices da estrutura
+	 */
+	public int getVerticesNumber();
+	
+	/**
+	 * Recupera um vértice a partir de seu identificador.
+	 * @param id Identificador do vertice
+	 * @return O vertice, caso exista
+	 */
+	public Vertex getVertex(int id);
+	
+	/**
+	 * @return A estrutura que armazena os vertices
+	 */
+	public HashSet<Vertex> getVertices();
+	
 }
