@@ -2,7 +2,7 @@ package main.arc.domain;
 
 import java.util.ArrayList;
 
-public class GraphAsList extends Graph{
+public abstract class GraphAsList extends Graph{
 	private ArrayList<Edge> edgeList = new ArrayList<Edge>();
 	private int edgeCounter;
 	

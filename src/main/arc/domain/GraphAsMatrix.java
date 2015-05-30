@@ -1,6 +1,6 @@
 package main.arc.domain;
 
-public class GraphAsMatrix extends Graph {
+public abstract class GraphAsMatrix extends Graph {
 	private int[][] adjMatrix;
 	private int edgeCounter;
 	
