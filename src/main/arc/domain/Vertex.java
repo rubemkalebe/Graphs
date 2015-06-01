@@ -5,16 +5,16 @@ package main.arc.domain;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 29.05.2015
+ * @version 01.06.2015
  */
 
 public abstract class Vertex {
 
 	// Identificador do vertice
-	private int vertexID;
+	protected int vertexID;
 	
 	// Grau do vertice
-	private int vertexDegree;
+	protected int vertexDegree;
 	
 	/**
 	 * Construtor padrão. Inicializa o vértice com o ID e degree = 0.
@@ -46,7 +46,9 @@ public abstract class Vertex {
 	 * Decrementa o grau do vértice em uma unidade.
 	 */
 	public void decreaseDegree() {
-		this.vertexDegree -= 1;
+		if(this.vertexDegree - 1 >= 0) {
+			this.vertexDegree -= 1;
+		}
 	}
 
 	public int getVertexID() {
@@ -62,7 +64,9 @@ public abstract class Vertex {
 	}
 
 	public void setVertexDegree(int vertexDegree) {
-		this.vertexDegree = vertexDegree;
+		if(vertexDegree >= 0) {
+			this.vertexDegree = vertexDegree;
+		}
 	}
 
 }

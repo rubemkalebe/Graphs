@@ -1,6 +1,6 @@
 package main.arc.domain;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import main.arc.iterator.AbstractEdgeIterator;
 import main.arc.iterator.AbstractVertexIterator;
@@ -12,7 +12,7 @@ import main.arc.visitor.VisitorInterface;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 30.05.2015
+ * @version 01.06.2015
  */
 
 public interface GraphInterface {
@@ -140,6 +140,6 @@ public interface GraphInterface {
 	/**
 	 * @return A estrutura que armazena os vertices
 	 */
-	public HashSet<Vertex> getVertices();
+	public ArrayList<Vertex> getVertices();
 	
 }

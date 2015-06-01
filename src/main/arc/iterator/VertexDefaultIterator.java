@@ -1,6 +1,6 @@
 package main.arc.iterator;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import main.arc.domain.Vertex;
 
@@ -9,7 +9,7 @@ import main.arc.domain.Vertex;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 29.05.2015
+ * @version 01.06.2015
  */
 
 public class VertexDefaultIterator extends AbstractVertexIterator {
@@ -18,16 +18,8 @@ public class VertexDefaultIterator extends AbstractVertexIterator {
 	 * Construtor padrão.
 	 * @param vertices Estrutura de vertices
 	 */
-	public VertexDefaultIterator(HashSet<Vertex> vertices) {
+	public VertexDefaultIterator(ArrayList<Vertex> vertices) {
 		super(vertices);
-	}
-	
-	/**
-	 * Retorna o primeiro vertice da estrutura.
-	 * @return Primeira vertice
-	 */
-	public Vertex first() {
-		return null; // -----
 	}
 	
 	/**
@@ -35,7 +27,11 @@ public class VertexDefaultIterator extends AbstractVertexIterator {
 	 * @return true se ainda existem elementos a serem percorridos, false caso contrário
 	 */
 	public boolean hasNext() {
-		return true; // -----
+		if(index + 1 < vertices.size()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -43,7 +39,7 @@ public class VertexDefaultIterator extends AbstractVertexIterator {
 	 * @return O proximo vertice
 	 */
 	public Vertex next() {
-		return null; // -----
+		return vertices.get(index);
 	}
 	
 }

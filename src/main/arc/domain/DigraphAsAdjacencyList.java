@@ -3,16 +3,15 @@ package main.arc.domain;
 import java.util.ArrayList;
 
 /**
- * Classe abstrata para grafos que utilizam listas de arestas.
+ * Classe abstrata para dígrafos que utilizam listas de arestas.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
  * @version 01.06.2015
  */
 
-public abstract class GraphAsList extends Graph{
-	private ArrayList<Edge> edgeList = new ArrayList<Edge>();
-	private int edgeCounter;
+public abstract class DigraphAsAdjacencyList extends GraphAsAdjancencyList implements
+																DigraphInterface {
 	
 	public GraphAsList() {
 		// TODO Auto-generated constructor stub
