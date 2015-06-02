@@ -22,7 +22,7 @@ public class WriteResultsToOUT {
 	 * 
 	 */
 	public void writeToFile(BestNetwork best) {
-		final String filename = "BestSolution.out";
+		final String filename = "src/main/java/parnatalOnline/BestSolution.out";
 		try {			
             FileWriter writer = new FileWriter(filename);
             Iterator it = best.getBest().createEdgeIterator(); 

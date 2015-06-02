@@ -25,17 +25,10 @@ Veja um exemplo de arquivo válido:
 
 ### Como executar? ###
 
-1. [Baixe aqui](https://bitbucket.org/rubemkalebe/parnatal-projdetsoft/downloads) este repositório.
-2. Extraia o arquivo .zip que foi baixado anteriormente.
 IMPORTANTE: Você pode usar qualquer IDE (ou fazer tudo na mão), mas as instruções serão destinadas a IDE Eclipse.
-3. Abra a IDE Eclipse.
-4. Vá em 'File' e em seguida seleciona a opção 'Import'. Lá você deverá importar um projeto e escolher a pasta que foi descompactada.
-5. Com o projeto aberto no *workspace* vá em 'Run Configurations' e insira um argumento válido para o programa (você pode usar 'tests/in2.in').
-6. Clique em 'Run' e execute o programa.
+1. Abra a IDE Eclipse.
+2. Vá em 'File' e em seguida seleciona a opção 'Import'. Lá você deverá importar um projeto e escolher a pasta onde ele está localizado.
+3. Com o projeto aberto no *workspace* vá em 'Run Configurations', selecione o projeto e em seguida a classe principal desta instância (que é a 'main.java.parnatalOnline.src.Main') e insira um argumento válido para o programa (você pode usar 'src/main/java/parnatalOnline/tests/in2.in').
+4. Clique em 'Run' e execute o programa.
 
 IMPORTANTE: O programa gera um arquivo contendo a melhor solução. Esse arquivo é salvo na pasta corrente do projeto e leva o nome de 'BestSolution.out'.
-
-### Equipe de desenvolvimento ###
-
-* Lilian Ketlyn (lili_ketlyn@hotmail.com)
-* Rubem Kalebe (rubemkalebe@gmail.com)
