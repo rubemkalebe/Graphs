@@ -7,10 +7,10 @@ public abstract class GraphAsMatrix extends Graph {
 	public GraphAsMatrix() {
 		// TODO Auto-generated constructor stub
 		this.edgeCounter = 0;
-		this.adjMatrix = new int[super.verticeNumber][super.verticeNumber];
+		this.adjMatrix = new int[super.vertices.size()][super.vertices.size()];
 		
-		for(int i =0; i< super.verticeNumber; i++){
-			for(int j =0; j < super.verticeNumber; j++){
+		for(int i =0; i< super.vertices.size(); i++){
+			for(int j =0; j < super.vertices.size(); j++){
 				this.adjMatrix[i][j] = 0;
 			}
 		}
@@ -42,8 +42,8 @@ public abstract class GraphAsMatrix extends Graph {
 	@Override
 	public void removeAllConnections() {
 		// TODO Auto-generated method stub
-		for(int i =0; i< super.verticeNumber; i++){
-			for(int j =0; j < super.verticeNumber; j++){
+		for(int i =0; i< super.vertices.size(); i++){
+			for(int j =0; j < super.vertices.size(); j++){
 				this.adjMatrix[i][j] = 0;
 			}
 		}
@@ -52,8 +52,8 @@ public abstract class GraphAsMatrix extends Graph {
 	@Override
 	public boolean isDirected() {
 		// TODO Auto-generated method stub
-		for(int i =0; i < super.verticeNumber; i++){
-			for(int j =0; j < super.verticeNumber; j++){
+		for(int i =0; i < super.vertices.size(); i++){
+			for(int j =0; j < super.vertices.size(); j++){
 				if(i != j){
 					if(this.isEdge(i, j) && !this.isEdge(j, i))
 						return false;

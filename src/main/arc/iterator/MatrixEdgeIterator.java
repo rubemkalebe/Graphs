@@ -10,42 +10,54 @@ import main.arc.domain.Edge;
  * @version 29.05.2015
  */
 
-public class MatrixEdgeIterator extends AbstractEdgeIterator {
+public class MatrixEdgeIterator implements Iterator {
 
 	// Lista de adjencia
-	private Edge[][] edges;
+	private int[][] adjMatrix;
+	private int index = 0;
 	
 	/**
 	 * Construtor padrão.
 	 * @param edges Lista de adjencia
 	 */
-	public MatrixEdgeIterator(Edge[][] edges) {
+	public MatrixEdgeIterator(int[][] adjMatrix) {
 		super();
-		this.edges = edges;
+		this.adjMatrix = adjMatrix;
 	}
 	
 	/**
 	 * Retorna a primeira aresta da estrutura.
 	 * @return Primeira aresta
 	 */
-	public Edge first() {
-		return null; // ------
+	@Override
+	public Object first() {
+		// TODO Auto-generated method stub
+		if(this.adjMatrix.length > 0){
+			this.index++;
+			return this.adjMatrix[0][1];
+		}
+		return null;
 	}
 	
 	/**
 	 * 
 	 * @return true se ainda existem elementos a serem percorridos, false caso contrário
 	 */
+	@Override
 	public boolean hasNext() {
-		return true; // ------
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	/**
 	 * 
 	 * @return A proxima aresta
 	 */
-	public Edge next() {
-		return null; // ------
+	@Override
+	public Object next() {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 
 	public Edge[][] getEdges() {

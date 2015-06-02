@@ -14,31 +14,27 @@ import java.util.LinkedList;
 public abstract class GraphAsAdjancencyList extends Graph {
 	
 	// Lista de adjacencia
-	protected ArrayList<LinkedList<Edge>> edgeList;
-	
-	// Contador de arestas
-	protected int edgeCounter;
+	protected ArrayList<LinkedList<Vertex>> listAdj;
 	
 	public GraphAsAdjancencyList() {
 		super();
-		this.edgeCounter = 0;
-		this.edgeList = new ArrayList<LinkedList<Edge>>();
+		this.listAdj = new ArrayList<LinkedList<Vertex>>();
 	}
 	
-	public ArrayList<LinkedList<Edge>> getEdges(){
-		return this.edgeList;
+	public ArrayList<LinkedList<Vertex>> getEdges(){
+		return this.listAdj;
 	}
 	
+	
+//	Por padrão faz uma conexão simétrica: v1 -> v2 && v2 -> v1;
 	@Override
 	public void connectVertices(Vertex v1, Vertex v2) throws Exception{
-		edgeList.get(v1.getVertexID());
+		int degreev1 = v1.vertexDegree, degreev2 = v2.vertexDegree;
 		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
-			for(int i = 0; i < edgeList.size(); i++) {
-				if((i == v1.getVertexID()) || (i == v2.getVertexID())) {
-					edgeList.get(i).add(new Edge(v1, v2, this.edgeCounter, false));
-					this.edgeCounter++;
-				}
-			}
+					this.listAdj.get(v1.vertexID).add(degreev1++, v2);
+					this.listAdj.get(v2.vertexID).add(degreev2++, v2);
+					v1.setVertexDegree(degreev1++);
+					v2.setVertexDegree(degreev2++);
 		}
 		else
 			throw new Exception("Vertices não existem!");
@@ -47,17 +43,8 @@ public abstract class GraphAsAdjancencyList extends Graph {
 	@Override
 	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception{
 		if((super.vertices.contains(v1) && super.vertices.contains(v2))){
-			Edge e = this.getEdge(v1, v2);
-			this.edgeList.remove(e);
-			this.edgeCounter--;
-		}
-		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
-			for(int i = 0; i < edgeList.size(); i++) {
-				if((i == v1.getVertexID()) || (i == v2.getVertexID())) {
-					edgeList.get(i).add(new Edge(v1, v2, this.edgeCounter, false));
-					this.edgeCounter++;
-				}
-			}
+			this.listAdj.get(v1.vertexID).remove(v2);
+			v1.setVertexDegree(v1.vertexDegree--);
 		}
 		else
 			throw new Exception("Vertices não existem!");
@@ -66,8 +53,11 @@ public abstract class GraphAsAdjancencyList extends Graph {
 	@Override
 	public void removeAllConnections() {
 		// TODO Auto-generated method stub
-		if(!this.edgeList.isEmpty())
-			this.edgeList.clear();
+		if(!this.listAdj.isEmpty()){
+			for(int i =0; i < this.listAdj.size(); i++)
+				this.listAdj.get(i).clear();
+		}
+			
 	}
 	
 	@Override
@@ -82,29 +72,21 @@ public abstract class GraphAsAdjancencyList extends Graph {
 	@Override
 	public boolean isDirected() {
 		// TODO Auto-generated method stub
-		for(int i  =0; i< this.edgeList.size(); i++){
-			if(!this.edgeList.get(i).isEDirected())
-				return false;
+		for(int i  =0; i< this.listAdj.size(); i++){
+			for(int j =0; j< this.listAdj.size(); j++){
+				if((this.listAdj.get(i).get(j) != null) && (this.listAdj.get(j).get(i) != null))
+					return false;
+			}
 		}
 		return true;
-	}
-	
-	public Edge getEdge(Vertex v1, Vertex v2) {
-		for(int i = 0; i < this.edgeList.size(); i++){
-			if(this.edgeList.get(i).getVertexA() == v1){
-				if(this.edgeList.get(i).getVertexB() == v2){
-					return this.edgeList.get(i);
-				}
-			}
-		}		
-		return null;
 	}
 	
 	@Override
 	public boolean isEdge(Vertex v1, Vertex v2) {
 		// TODO Auto-generated method stub
-		if(this.getEdge(v1, v2) != null){
-			return true;
+		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
+			if(this.listAdj.get(v1.vertexID).get(v2.vertexID) != null)
+				return true;
 		}
 		return false;
 	}

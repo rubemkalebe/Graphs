@@ -2,8 +2,7 @@ package main.arc.domain;
 
 import java.util.ArrayList;
 
-import main.arc.iterator.AbstractVertexIterator;
-import main.arc.iterator.VertexDefaultIterator;
+import main.arc.iterator.*;
 import main.arc.visitor.PreInPostVisitorInterface;
 import main.arc.visitor.VisitorInterface;
 
@@ -127,7 +126,7 @@ public abstract class Graph implements GraphInterface{
 		return null;
 	}
 	
-	public AbstractVertexIterator createVertexIterator() {
+	public Iterator createVertexIterator() {
 		return new VertexDefaultIterator(vertices); 
 	}
 	
