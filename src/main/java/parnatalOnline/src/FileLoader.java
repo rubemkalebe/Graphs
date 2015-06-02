@@ -11,31 +11,52 @@ import java.util.Scanner;
  */
 
 public class FileLoader {
-
-	// Caminho do arquivo de entrada
-	private String path;
 	
 	/**
 	 * Construtor da classe de leitura de arquivo.
-	 * @param path Caminho do arquivo a ser lido
+	 * 
 	 */
-	public FileLoader(String path) {
-		this.path = path;
+	public FileLoader() {
+		
 	}
 	
 	/**
-	 * Lê a quantidade máxima de vértices (casas) e grau máximo a partir do arquivo.
+	 * Lê a quantidade máxima de vértices (casas).
 	 * @throws java.util.NoSuchElementException Caso o arquivo esteja incompleto
 	 */
-	public void readNetworkInfo() {
+	public int readVertexInfo(String path) {
+		int v = 0;
 		try {
 			Scanner scan = new Scanner(new FileReader(path));
 			if(scan.hasNextInt()) {
-				Network.setVertexMax(scan.nextInt());
+				v = scan.nextInt();
+				scan.close();
+				return v;
+			}
+			System.err.println("Problema na leitura do arquivo \'" 
+					+ path + "\'");
+			scan.close();
+			throw new NoSuchElementException("Estão faltando informações" +
+					"sobre as restrinções da rede");
+		} catch(FileNotFoundException e) {
+			System.err.println("Erro ao abrir arquivo \'" + path + "\'");
+		}
+		return v;
+	}
+	
+	/**
+	 * Lê o grau máximo a partir do arquivo.
+	 * @throws java.util.NoSuchElementException Caso o arquivo esteja incompleto
+	 */
+	public int readDegreeInfo(String path) {
+		int d = 0;
+		try {
+			Scanner scan = new Scanner(new FileReader(path));
+			if(scan.hasNextInt()) {
 				if(scan.hasNextInt()) {
-					Network.setDegreeMax(scan.nextInt());
+					d = scan.nextInt();
 					scan.close();
-					return;
+					return d;
 				}
 			}
 			System.err.println("Problema na leitura do arquivo \'" 
@@ -46,6 +67,7 @@ public class FileLoader {
 		} catch(FileNotFoundException e) {
 			System.err.println("Erro ao abrir arquivo \'" + path + "\'");
 		}
+		return d;
 	}
 	
 	/**
@@ -54,7 +76,7 @@ public class FileLoader {
 	 * @throws java.util.NoSuchElementException Caso o arquivo esteja incompleto 
 	 */
 	@SuppressWarnings("unused")
-	public void readCostMatrix(CostMatrix matrix) {
+	public void readCostMatrix(CostMatrix matrix, String path) {
 		try {
 			int cX;
 			Scanner scan = new Scanner(new FileReader(path));
@@ -93,22 +115,6 @@ public class FileLoader {
 		} catch(FileNotFoundException e) {
 			System.err.println("Erro ao abrir arquivo \'" + path + "\'");
 		}
-	}
-
-	/**
-	 * 
-	 * @return Caminho do arquivo de entrada
-	 */
-	public String getPath() {
-		return path;
-	}
-
-	/**
-	 * Altera o caminho do arquivo de entrada
-	 * @param path Novo caminho do arquivo de entrada
-	 */
-	public void setPath(String path) {
-		this.path = path;
 	}
 	
 }

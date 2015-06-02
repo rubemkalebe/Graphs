@@ -1,5 +1,7 @@
 package main.java.parnatalOnline.src;
 
+import main.arc.domain.Edge;
+
 /**
  * A classe BestNetwork é responsável por procurar a melhor solução, armazenando
  * dados sobre essa solução, como quantidade de soluções geradas e tempo gasto.
@@ -25,8 +27,8 @@ public class BestNetwork {
 	 * da matriz de custos para o problema dado.
 	 * @param inputFilePath Caminho/Nome+extensão do arquivo
 	 */
-	public BestNetwork(CostMatrix costMatrix) {
-		bestTree = new Network();
+	public BestNetwork(CostMatrix costMatrix, int vertexMax, int degreeMax) {
+		bestTree = new Network(vertexMax, degreeMax);
 		solutions = 0;
 		executionTime = 0;
 		this.costMatrix = costMatrix;
@@ -37,13 +39,12 @@ public class BestNetwork {
 	 *  
 	 */
 	public void findBest() {
-		Connection[] link = new Connection[
-		                           edges(Network.getVertexMax())]; // Número de rotas possíveis
+		Edge[] link = new Edge[edges(bestTree.getVertexMax())]; // Número de rotas possíveis
 																			// equivalente ao somatório de 1...n
-		Network tree = new Network();
+		Network tree = new Network(bestTree.getVertexMax(), bestTree.getDegreeMax());
 		Chronometer.start();
 		initializeLinkVector(link);
-		combinations(link, Network.getVertexMax()-1, 0, tree); // Computa as combinações de arestas possíveis
+		combinations(link, bestTree.getVertexMax()-1, 0, tree); // Computa as combinações de arestas possíveis
 		Chronometer.stop();
 		executionTime = Chronometer.elapsedTime();
 	}
@@ -61,13 +62,13 @@ public class BestNetwork {
 	 * Inicializa vetor de conexões com todas as possíveis conexões entre as residências.
 	 * @param link Vetor de conexões
 	 */
-	private void initializeLinkVector(Connection[] link) {
+	private void initializeLinkVector(Edge[] link) {
 		int countEdges = 0; // Índice da aresta
-		for(int i = 0; i < Network.getVertexMax(); i++) {
-			for(int j = i; j < Network.getVertexMax(); j++) {
+		for(int i = 0; i < bestTree.getVertexMax(); i++) {
+			for(int j = i; j < bestTree.getVertexMax(); j++) {
 				if(i != j) {
-					link[countEdges++] = new Connection(new Residence(i+1), 
-							new Residence(j+1), countEdges, costMatrix.getElement(i, j));
+					link[countEdges++] = new Edge(new Residence(i+1), 
+							new Residence(j+1), countEdges, costMatrix.getElement(i, j), false);
 				}
 			}
 		}
@@ -80,10 +81,10 @@ public class BestNetwork {
 	 * @param startPosition Posição de início no vetor link
 	 * @param tree Objeto para armazenar a árvore que está sendo verificada
 	 */
-	private void combinations(Connection[] link, int size, int startPosition,
+	private void combinations(Edge[] link, int size, int startPosition,
 			Network tree) {
 		if(size == 0) {
-			if((solutions == 0) || (tree.totalCost() < bestTree.totalCost())) {			
+			if((solutions == 0) || (tree.getTotalCost() < bestTree.getTotalCost())) {			
 				bestTree.changeNetwork(tree);
 			}
 			solutions++;

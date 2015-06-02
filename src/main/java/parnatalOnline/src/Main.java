@@ -1,9 +1,8 @@
+package main.java.parnatalOnline.src;
+
 /**
  * Essa é a classe principal do projeto.
  * 
- * @author Lilian Ketlyn
- * @author Rubem Kalebe
- * @version 14.03.2015
  */
 
 public class Main {
@@ -11,15 +10,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 		if(args.length > 0) {
-			FileLoader loader = new FileLoader(args[0]);
-			loader.readNetworkInfo();
-			CostMatrix costMatrix = new CostMatrix(Network.getVertexMax());
-			loader.readCostMatrix(costMatrix);
-			BestNetwork best = new BestNetwork(costMatrix);
+			FileLoader loader = new FileLoader();
+			CostMatrix costMatrix = new CostMatrix(loader.readVertexInfo(args[0]));
+			BestNetwork best = new BestNetwork(costMatrix, loader.readVertexInfo(args[0]),
+					loader.readDegreeInfo(args[0]));			
+			loader.readCostMatrix(costMatrix, args[0]);
 			best.findBest();
 			WriteResultsToOUT writer = new WriteResultsToOUT();
 			writer.writeToFile(best);
-			System.out.println("Menor custo: " + best.getBest().totalCost());
+			System.out.println("Menor custo: " + best.getBest().getTotalCost());
 			System.out.println("Soluções válidas: " + best.getSolutions());
 			System.out.println("Tempo total gasto na busca pela solução: " +
             		best.getExecutionTime() + "ms");

@@ -1,7 +1,6 @@
 package main.arc.iterator;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import main.arc.domain.Edge;
 
@@ -48,7 +47,7 @@ public class ListEdgeIterator implements Iterator {
 	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
-		if(this.index > this.edges.size() || this.edges.get(this.index) == null)
+		if(this.index >= this.edges.size())
 			return false;
 		return true;
 	}

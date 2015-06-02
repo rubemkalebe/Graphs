@@ -2,6 +2,8 @@ package main.arc.domain;
 
 import java.util.ArrayList;
 
+import main.arc.iterator.ListEdgeIterator;
+
 /**
  * Classe abstrata para grafos que utilizam listas de arestas.
  * 
@@ -11,12 +13,15 @@ import java.util.ArrayList;
  */
 
 public abstract class GraphAsList extends Graph{
-	private ArrayList<Edge> edgeList = new ArrayList<Edge>();
-	private int edgeCounter;
+	
+	protected ArrayList<Edge> edgeList;
+	protected int edgeCounter;
 	
 	public GraphAsList() {
 		// TODO Auto-generated constructor stub
+		super();
 		this.edgeCounter = 0;
+		edgeList = new ArrayList<Edge>();
 	}
 	
 	public ArrayList<Edge> getEdges(){
@@ -117,6 +122,26 @@ public abstract class GraphAsList extends Graph{
 			return true;
 		}
 		return false;
+	}
+	
+	public main.arc.iterator.Iterator createEdgeIterator() {
+		return new ListEdgeIterator(edgeList);
+	}
+
+	public ArrayList<Edge> getEdgeList() {
+		return edgeList;
+	}
+
+	public void setEdgeList(ArrayList<Edge> edgeList) {
+		this.edgeList = edgeList;
+	}
+
+	public int getEdgeCounter() {
+		return edgeCounter;
+	}
+
+	public void setEdgeCounter(int edgeCounter) {
+		this.edgeCounter = edgeCounter;
 	}
 
 }

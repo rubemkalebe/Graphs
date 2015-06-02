@@ -2,9 +2,9 @@ package main.java.parnatalOnline.src;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Vector;
 
-import main.arc.persistence.GraphSaver;
+import main.arc.domain.Edge;
+import main.arc.iterator.Iterator;
 
 /**
  * A classe WriteResultsToFile é responsável por salvar informações importantes sobre
@@ -12,7 +12,7 @@ import main.arc.persistence.GraphSaver;
  * 
  */
 
-public class WriteResultsToOUT implements GraphSaver {
+public class WriteResultsToOUT {
 
 	/**
 	 * Salva informações sobre a melhor rede de distribuição no arquivo "BestSolution.out";
@@ -25,12 +25,12 @@ public class WriteResultsToOUT implements GraphSaver {
 		final String filename = "BestSolution.out";
 		try {			
             FileWriter writer = new FileWriter(filename);
-            Vector<Edge> links = new Vector<Edge>(best.getBest().getTree()); 
-            writer.write("Menor custo: " + Integer.toString(best.getBest().totalCost()) + "\n");
+            Iterator it = best.getBest().createEdgeIterator(); 
+            writer.write("Menor custo: " + Integer.toString(best.getBest().getTotalCost()) + "\n");
             writer.write("Árvore de menor custo: ");
-            for(Edge edge : links) {
-            	edge = (Connection) edge;
-            	writer.write(Integer.toString(edge.getInicial().getID()) + "-" + Integer.toString(edge.getTerminal().getID()));
+            while(it.hasNext()) {
+            	Edge e = (Edge) it.next();
+            	writer.write(Integer.toString(e.getVertexA().getVertexID()) + "-" + Integer.toString(e.getVertexB().getVertexID()));
             	writer.write(' ');
             }
             writer.write('\n');

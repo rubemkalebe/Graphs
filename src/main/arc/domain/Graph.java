@@ -149,5 +149,13 @@ public abstract class Graph implements GraphInterface{
 	public boolean isConnected() {
 		return true; // -------
 	}
+	
+	public boolean isCyclic() {
+		return false;
+	}
+	
+	public boolean isDirected() {
+		return false;
+	}
 
 }
