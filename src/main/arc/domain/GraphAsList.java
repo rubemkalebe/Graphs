@@ -34,6 +34,19 @@ public abstract class GraphAsList extends Graph{
 			throw new Exception("Vertices não existem!");
 	}
 	
+	/**
+	 * Adiciona uma aresta diretamente no grafo.
+	 * @param e Aresta a ser inserida
+	 * @throws Exception se algum dos vértices não tiver presente na estrutura
+	 */
+	public void addEdge(Edge e) throws Exception {
+		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexA())) {
+			this.edgeList.add(e);
+		} else {
+			throw new Exception("Vertices não existem!");
+		}
+	}
+	
 	@Override
 	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception{
 		// TODO Auto-generated method stub
@@ -44,6 +57,19 @@ public abstract class GraphAsList extends Graph{
 		}
 		else
 			throw new Exception("Vertices não existem!");
+	}
+	
+	/**
+	 * Remove uma aresta diretamente no grafo.
+	 * @param e Aresta a ser removida
+	 * @throws Exception Caso a aresta não esteja presente na estrutura
+	 */
+	public void removeEdge(Edge e) throws Exception {
+		if(edgeList.contains(e)) {
+			edgeList.remove(e);
+		} else {
+			throw new Exception("Aresta não existe!");
+		}
 	}
 	
 	@Override
