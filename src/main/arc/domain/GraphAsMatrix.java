@@ -81,4 +81,8 @@ public abstract class GraphAsMatrix extends Graph {
 		return this.adjMatrix;
 	}
 
+	public int getEdgeCounter() {
+		return edgeCounter;
+	}
+
 }

@@ -1,7 +1,5 @@
 package main.arc.domain;
 
-import java.util.ArrayList;
-
 /**
  * Classe abstrata para dígrafos que utilizam listas de adjacência.
  * 

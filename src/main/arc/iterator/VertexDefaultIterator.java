@@ -9,19 +9,21 @@ import main.arc.domain.Vertex;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 03.06.2015
  */
 
 public class VertexDefaultIterator implements Iterator {
 	
 	private ArrayList<Vertex> vertices;
-	private int index = 0;
+	private int index;
+	
 	/**
 	 * Construtor padrão.
 	 * @param vertices Estrutura de vertices
 	 */
 	public VertexDefaultIterator(ArrayList<Vertex> vertices) {
 		super();
+		this.index = 0;
 		this.vertices = vertices;
 	}
 	
@@ -49,11 +51,13 @@ public class VertexDefaultIterator implements Iterator {
 	@Override
 	public Object next() {
 		// TODO Auto-generated method stub
-		Vertex v = this.vertices.get(this.index);
-		this.index++;
-		return v;
+		if(this.index > this.vertices.size() || this.vertices.get(this.index) == null) {
+			return null;
+		} else {
+			Vertex v = this.vertices.get(this.index);
+			this.index++;
+			return v;
+		}		
 	}
-
-	
 	
 }

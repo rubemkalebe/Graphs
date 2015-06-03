@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 //import main.arc.iterator.AbstractEdgeIterator;
 import main.arc.iterator.*;
-import main.arc.iterator.AbstractVertexIterator;
 import main.arc.visitor.PreInPostVisitorInterface;
 import main.arc.visitor.VisitorInterface;
 

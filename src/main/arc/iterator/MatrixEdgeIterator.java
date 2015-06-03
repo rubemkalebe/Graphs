@@ -61,11 +61,11 @@ public class MatrixEdgeIterator implements Iterator {
 	}
 
 	public Edge[][] getEdges() {
-		return edges;
+		return null; // -------
 	}
 
 	public void setEdges(Edge[][] edges) {
-		this.edges = edges;
+		// -------
 	}
 	
 }

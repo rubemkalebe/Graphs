@@ -1,16 +1,15 @@
 package main.arc.iterator;
 
-import main.arc.domain.Edge;
-
 /**
  * Classe abstrata para iteradores de arestas.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 29.05.2015
+ * @version 03.06.2015
  */
 
 public interface Iterator {	
+	
 	/**
 	 * Retorna a primeira aresta da estrutura.
 	 * @return Primeira aresta
