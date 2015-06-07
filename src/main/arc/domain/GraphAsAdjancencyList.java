@@ -3,12 +3,14 @@ package main.arc.domain;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import main.arc.iterator.AdjacencyListEdgeIterator;
+
 /**
  * Classe abstrata para grafos que utilizam listas de adjacencia.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
 public abstract class GraphAsAdjancencyList extends Graph {
@@ -26,59 +28,56 @@ public abstract class GraphAsAdjancencyList extends Graph {
 	}
 	
 	
-//	Por padrão faz uma conexão simétrica: v1 -> v2 && v2 -> v1;
+	//	Por padrão faz uma conexão simétrica: v1 -> v2 && v2 -> v1;
 	@Override
-	public void connectVertices(Vertex v1, Vertex v2) throws Exception{
-		int degreev1 = v1.vertexDegree, degreev2 = v2.vertexDegree;
-		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
-					this.listAdj.get(v1.vertexID).add(degreev1++, v2);
-					this.listAdj.get(v2.vertexID).add(degreev2++, v2);
-					v1.setVertexDegree(degreev1++);
-					v2.setVertexDegree(degreev2++);
+	public void connectVertices(Vertex v1, Vertex v2) throws Exception {
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v1, v2)){
+					this.listAdj.get(v1.getVertexID()).add(v1.getVertexOutDegree(), v2);
+					v1.increaseOutDegree();
+					v2.increaseInDegree();
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v2, v1)){
+			this.listAdj.get(v2.getVertexID()).add(v2.getVertexOutDegree(), v1);
+			v2.increaseOutDegree();
+			v1.increaseInDegree();
+		}
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
 	}
 	
 	@Override
 	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception{
-		if((super.vertices.contains(v1) && super.vertices.contains(v2))){
-			this.listAdj.get(v1.vertexID).remove(v2);
-			v1.setVertexDegree(v1.vertexDegree--);
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v1, v2)){
+			this.listAdj.get(v1.getVertexID()).remove(v2);
+			v1.decreaseOutDegree();
+			v2.decreaseInDegree();
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		else {
+			throw new Exception("Vertices ou a aresta não existem!");
+		}
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v2, v1)){
+			this.listAdj.get(v2.getVertexID()).remove(v1);
+			v2.decreaseOutDegree();
+			v1.decreaseInDegree();
+		}
+		else {
+			throw new Exception("Vertices ou a aresta não existem!");
+		}
 	}
 	
 	@Override
 	public void removeAllConnections() {
 		// TODO Auto-generated method stub
 		if(!this.listAdj.isEmpty()){
-			for(int i =0; i < this.listAdj.size(); i++)
+			for(int i = 0; i < this.listAdj.size(); i++)
 				this.listAdj.get(i).clear();
 		}
-			
-	}
-	
-	@Override
-	public boolean isConnected() {
-		// TODO Auto-generated method stub
-
-		//Falta implementar um algoritmo de busca em profundidade(Depth-first search).
-		
-		return false;
-	}
-	
-	@Override
-	public boolean isDirected() {
-		// TODO Auto-generated method stub
-		for(int i  =0; i< this.listAdj.size(); i++){
-			for(int j =0; j< this.listAdj.size(); j++){
-				if((this.listAdj.get(i).get(j) != null) && (this.listAdj.get(j).get(i) != null))
-					return false;
-			}
-		}
-		return true;
 	}
 	
 	@Override
@@ -89,6 +88,18 @@ public abstract class GraphAsAdjancencyList extends Graph {
 				return true;
 		}
 		return false;
+	}
+	
+	public main.arc.iterator.Iterator createEdgeIterator() {
+		return new AdjacencyListEdgeIterator(listAdj);
+	}
+
+	public ArrayList<LinkedList<Vertex>> getListAdj() {
+		return listAdj;
+	}
+
+	public void setListAdj(ArrayList<LinkedList<Vertex>> listAdj) {
+		this.listAdj = listAdj;
 	}
 
 }

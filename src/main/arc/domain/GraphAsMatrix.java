@@ -1,16 +1,32 @@
 package main.arc.domain;
 
+/**
+ * Classe abstrata para grafos que utilizam matriz de adjacencia.
+ * 
+ * @author Pedro Coelho
+ * @author Rubem Kalebe
+ * @version 07.06.2015
+ */
+
 public abstract class GraphAsMatrix extends Graph {
-	private int[][] adjMatrix;
-	private int edgeCounter;
 	
-	public GraphAsMatrix() {
+	// Matriz de adjacencia
+	protected int[][] adjMatrix;
+	
+	// Contador de arestas
+	protected int edgeCounter;
+	
+	// Tamanho do grafo
+	protected int size;
+	
+	public GraphAsMatrix(int size) {
 		// TODO Auto-generated constructor stub
 		this.edgeCounter = 0;
-		this.adjMatrix = new int[super.vertices.size()][super.vertices.size()];
+		this.size = size;
+		this.adjMatrix = new int[size][size];
 		
-		for(int i =0; i< super.vertices.size(); i++){
-			for(int j =0; j < super.vertices.size(); j++){
+		for(int i = 0; i < size; i++){
+			for(int j = 0; j < size; j++){
 				this.adjMatrix[i][j] = 0;
 			}
 		}
@@ -19,48 +35,59 @@ public abstract class GraphAsMatrix extends Graph {
 	@Override
 	public void connectVertices(Vertex v1, Vertex v2) throws Exception {
 		// TODO Auto-generated method stub
-		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v1, v2)){
 			this.adjMatrix[super.vertices.indexOf(v1)][super.vertices.indexOf(v2)] = 1;
-			this.adjMatrix[super.vertices.indexOf(v2)][super.vertices.indexOf(v1)] = this.adjMatrix[super.vertices.indexOf(v1)][super.vertices.indexOf(v2)];
+			v1.increaseOutDegree();
+			v2.increaseInDegree();
 			this.edgeCounter++;
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v2, v1)){
+			this.adjMatrix[super.vertices.indexOf(v2)][super.vertices.indexOf(v1)] = 1;
+			v2.increaseOutDegree();
+			v1.increaseInDegree();
+			this.edgeCounter++;
+		}
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
 	}
 	
 	@Override
 	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception {
 		// TODO Auto-generated method stub
-		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v1, v2)){
 			this.adjMatrix[super.vertices.indexOf(v1)][super.vertices.indexOf(v2)] = 0;
-			this.adjMatrix[super.vertices.indexOf(v2)][super.vertices.indexOf(v1)] = this.adjMatrix[super.vertices.indexOf(v1)][super.vertices.indexOf(v2)];
+			v1.decreaseOutDegree();
+			v2.decreaseInDegree();
+			this.edgeCounter--;
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		else {
+			throw new Exception("Vertices ou a aresta não existem!");
+		}
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v2, v1)){
+			this.adjMatrix[super.vertices.indexOf(v2)][super.vertices.indexOf(v1)] = 0;
+			v2.decreaseOutDegree();
+			v1.decreaseInDegree();
+			this.edgeCounter--;
+		}
+		else {
+			throw new Exception("Vertices ou a aresta não existem!");
+		}
 	}
 	
 	@Override
 	public void removeAllConnections() {
 		// TODO Auto-generated method stub
-		for(int i =0; i< super.vertices.size(); i++){
-			for(int j =0; j < super.vertices.size(); j++){
+		for(int i = 0; i < super.vertices.size(); i++){
+			for(int j = 0; j < super.vertices.size(); j++){
 				this.adjMatrix[i][j] = 0;
 			}
 		}
-	}
-	
-	@Override
-	public boolean isDirected() {
-		// TODO Auto-generated method stub
-		for(int i =0; i < super.vertices.size(); i++){
-			for(int j =0; j < super.vertices.size(); j++){
-				if(i != j){
-					if(this.isEdge(i, j) && !this.isEdge(j, i))
-						return false;
-				}
-			}
-		}
-		return true;
 	}
 	
 	@Override
@@ -83,6 +110,18 @@ public abstract class GraphAsMatrix extends Graph {
 
 	public int getEdgeCounter() {
 		return edgeCounter;
+	}
+
+	public int[][] getAdjMatrix() {
+		return adjMatrix;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 }

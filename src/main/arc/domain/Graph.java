@@ -3,18 +3,16 @@ package main.arc.domain;
 import java.util.ArrayList;
 
 import main.arc.iterator.*;
-import main.arc.visitor.PreInPostVisitorInterface;
-import main.arc.visitor.VisitorInterface;
 
 /**
  * Classe abstrata para grafos.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
-public abstract class Graph implements GraphInterface{
+public abstract class Graph implements GraphInterface {
 	
 	// Número de arestas
 	protected int edgesNumber;
@@ -130,24 +128,57 @@ public abstract class Graph implements GraphInterface{
 		return new VertexDefaultIterator(vertices); 
 	}
 	
-	public void breadthFirstTraversal(VisitorInterface vis) {
-		// -------
+	public Iterator breadthFirstTraversal() {
+		return new BreadthFirstIterator(this, vertices.get(0));
 	}
 	
-	public void breadthFirstTraversal(VisitorInterface vis, Vertex v) {
-		// -------		
+	public Iterator breadthFirstTraversal(Vertex v) {
+		return new BreadthFirstIterator(this, v);
 	}
 	
-	public void depthFirstTraversal(PreInPostVisitorInterface vis) {
-		// -------
+	public Iterator preOrderDepthFirstTraversal() {
+		return new PreOrderDFSIterator(this, vertices.get(0));
 	}
 	
-	public void depthFirstTraversal(PreInPostVisitorInterface vis, Vertex v) {
-		// -------
+	public Iterator preOrderDepthFirstTraversal(Vertex v) {
+		return new PreOrderDFSIterator(this, v);
+	}
+	
+	public Iterator inOrderDepthFirstTraversal() {
+		return new InOrderDFSIterator(this, vertices.get(0));
+	}
+	
+	public Iterator inOrderDepthFirstTraversal(Vertex v) {
+		return new InOrderDFSIterator(this, v);
+	}
+	
+	public Iterator postOrderDepthFirstTraversal() {
+		return new PostOrderDFSIterator(this, vertices.get(0));
+	}
+	
+	public Iterator postOrderDepthFirstTraversal(Vertex v) {
+		return new PostOrderDFSIterator(this, v);
 	}
 	
 	public boolean isConnected() {
-		return true; // -------
+		/*
+		 * Um grafo não orientado é conexo se existe um caminho entre todo par de vértices
+		 * da estrutura.
+		 * 
+		 * Um dígrafo é fortemente conexo se existe um caminho entre todo par de vértices
+		 * da estrutura.
+		 * 
+		 * Um dígrafo é fracamento conexo se seu grafo não orientado subjacente for
+		 * conexo. 
+		 */
+		
+		int count = 0;
+		Iterator it = this.breadthFirstTraversal();
+		while(it.hasNext()) {
+			it.next();
+			count += 1;
+		}
+		return count == getVerticesNumber();
 	}
 	
 	public boolean isCyclic() {

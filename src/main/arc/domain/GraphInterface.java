@@ -2,17 +2,14 @@ package main.arc.domain;
 
 import java.util.ArrayList;
 
-//import main.arc.iterator.AbstractEdgeIterator;
 import main.arc.iterator.*;
-import main.arc.visitor.PreInPostVisitorInterface;
-import main.arc.visitor.VisitorInterface;
 
 /**
  * Interface para grafos.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
 public interface GraphInterface {
@@ -94,30 +91,49 @@ public interface GraphInterface {
 	public Iterator createVertexIterator();
 	
 	/**
-	 * Realiza percurso em largura em toda a estrutura.
-	 * @param vis Visitante
+	 * @return Iterador para percurso em largura da estrutura
 	 */
-	public void breadthFirstTraversal(VisitorInterface vis);
+	public Iterator breadthFirstTraversal();
 	
 	/**
-	 * Realiza percurso em largura a partir de um vértice.
-	 * @param vis Visitante
-	 * @param v Vertice inicial
+	 * 
+	 * @param v Vértice inicial
+	 * @return Iterador para percurso em largura a partir de um vértice
 	 */
-	public void breadthFirstTraversal(VisitorInterface vis, Vertex v);
+	public Iterator breadthFirstTraversal(Vertex v);
 	
 	/**
-	 * Realiza percurso em profundidade em toda a estrutura.
-	 * @param vis Visitante
+	 * @return Iterador para percurso em pré-ordem na estrutura
 	 */
-	public void depthFirstTraversal(PreInPostVisitorInterface vis);
+	public Iterator preOrderDepthFirstTraversal();
 	
 	/**
-	 * Realiza percurso em profundidade a partir de um vértice.
-	 * @param vis Visitante
-	 * @param v Vertice inicial
+	 * @param v Vértice inicial
+	 * @return Iterador para percurso em pré-ordem a partir de um vértice
 	 */
-	public void depthFirstTraversal(PreInPostVisitorInterface vis, Vertex v);
+	public Iterator preOrderDepthFirstTraversal(Vertex v);
+	
+	/**
+	 * @return Iterador para percurso em ordem na estrutura
+	 */
+	public Iterator inOrderDepthFirstTraversal();
+	
+	/**
+	 * @param v Vértice inicial
+	 * @return Iterador para percurso em ordem a partir de um vértice
+	 */
+	public Iterator inOrderDepthFirstTraversal(Vertex v);
+	
+	/**
+	 * @return Iterador para percurso em pós-ordem na estrutura
+	 */
+	public Iterator postOrderDepthFirstTraversal();
+	
+	/**
+	 * @param v Vértice inicial
+	 * @return Iterador para percurso em pós-ordem a partir de um vértice
+	 */
+	public Iterator postOrderDepthFirstTraversal(Vertex v);
 	
 	/**
 	 * 

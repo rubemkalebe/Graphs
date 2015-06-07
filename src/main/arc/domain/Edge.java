@@ -5,7 +5,7 @@ package main.arc.domain;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 29.05.2015
+ * @version 07.06.2015
  */
 
 public class Edge {
@@ -79,9 +79,14 @@ public class Edge {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * Retorna vertexA.ID + vertexB.ID.
+	 * Ex.: Se a aresta conecta os vértices 2 5, ele retorna "2 5"
+	 */
 	@Override
 	public String toString() {
-		return null; // --------
+		return String.valueOf(vertexA.getVertexID()) + " " + 
+				String.valueOf(vertexB.getVertexID());
 	}
 	
 	public Vertex getVertexA() {

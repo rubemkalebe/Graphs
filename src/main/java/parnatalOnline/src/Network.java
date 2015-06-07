@@ -41,32 +41,35 @@ public class Network extends GraphAsList {
 	 * @return true se ela pode/foi adicionada ou false, caso contrário
 	 */
 	public boolean addConnection(Edge e) {
-		if(((e.getVertexA().getVertexDegree() < degreeMax) && (e.getVertexB().getVertexDegree() < degreeMax))
+		if(((e.getVertexA().getVertexOutDegree() < degreeMax) && (e.getVertexB().getVertexOutDegree() < degreeMax))
 				&& (!uf.same_component(e.getVertexA().getVertexID(), e.getVertexB().getVertexID()))) {
-			edgeList.add(e);
-			totalCost += e.getEdgeCost();
-			e.getVertexA().increaseDegree();
-			e.getVertexB().increaseDegree();
-			uf.union(e.getVertexA().getVertexID(), e.getVertexB().getVertexID());
-			return true;
-		} else {
-			return false;
+			try {
+				this.addEdge(e);
+				totalCost += e.getEdgeCost();
+				uf.union(e.getVertexA().getVertexID(), e.getVertexB().getVertexID());
+				return true;
+			} catch(Exception ex) {
+				// do nothing
+			}
 		}
+		return false;
 	}
 	
 	/**
 	 * Remove a última conexão/aresta do vetor e atualiza as informações da rede.
 	 */
 	public void removeConnection() {
-		edgeList.get(edgeList.size() - 1).getVertexA().decreaseDegree();
-		edgeList.get(edgeList.size() - 1).getVertexB().decreaseDegree();
-		totalCost -= edgeList.get(edgeList.size() - 1).getEdgeCost(); 
-		edgeList.remove(edgeList.size() - 1);
+		try {
+			removeEdge(this.edgeList.get(this.edgeList.size() - 1));
+			totalCost -= edgeList.get(edgeList.size() - 1).getEdgeCost();
+		} catch(Exception ex) {
+			// do nothing
+		}
 		uf = new UnionFind(vertexMax);
 		for(Edge edge : edgeList) {
 			edge = (Edge) edge;
 			uf.union(edge.getVertexA().getVertexID(), edge.getVertexB().getVertexID());
-		}		
+		}
 	}
 	
 	/**

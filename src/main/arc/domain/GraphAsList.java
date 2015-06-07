@@ -9,12 +9,15 @@ import main.arc.iterator.ListEdgeIterator;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
-public abstract class GraphAsList extends Graph{
+public abstract class GraphAsList extends Graph {
 	
+	// Lista de arestas
 	protected ArrayList<Edge> edgeList;
+	
+	// Contador de arestas
 	protected int edgeCounter;
 	
 	public GraphAsList() {
@@ -31,12 +34,24 @@ public abstract class GraphAsList extends Graph{
 	@Override
 	public void connectVertices(Vertex v1, Vertex v2) throws Exception{
 		// TODO Auto-generated method stub
-		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
-			this.edgeList.add(new Edge(v1, v2, this.edgeCounter, false));
-			this.edgeCounter++;
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v1, v2)){
+			this.edgeList.add(new Edge(v1, v2, this.edgeCounter++, false));
+			v1.increaseOutDegree();
+			v2.increaseInDegree();
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
+		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v2, v1)){
+			this.edgeList.add(new Edge(v2, v1, this.edgeCounter++, false));
+			v2.increaseOutDegree();
+			v1.increaseInDegree();
+		}
+		else {
+			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
+					+ "inserida anteriormente");
+		}
 	}
 	
 	/**
@@ -45,8 +60,11 @@ public abstract class GraphAsList extends Graph{
 	 * @throws Exception se algum dos vértices não tiver presente na estrutura
 	 */
 	public void addEdge(Edge e) throws Exception {
-		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexA())) {
+		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexB())) {
 			this.edgeList.add(e);
+			e.getVertexA().increaseOutDegree();
+			e.getVertexB().increaseInDegree();
+			this.edgeCounter += 1;
 		} else {
 			throw new Exception("Vertices não existem!");
 		}
@@ -55,13 +73,22 @@ public abstract class GraphAsList extends Graph{
 	@Override
 	public void disconnectVertices(Vertex v1, Vertex v2) throws Exception{
 		// TODO Auto-generated method stub
-		if((super.vertices.contains(v1) && super.vertices.contains(v2))){
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v1, v2)){
 			Edge e = this.getEdge(v1, v2);
 			this.edgeList.remove(e);
-			this.edgeCounter--;
+			v1.decreaseOutDegree();
+			v2.decreaseInDegree();
+		} else {
+			throw new Exception("Vertices ou a aresta não existem!");
 		}
-		else
-			throw new Exception("Vertices não existem!");
+		if((super.vertices.contains(v1) && super.vertices.contains(v2)) && isEdge(v2, v1)){
+			Edge e = this.getEdge(v2, v1);
+			this.edgeList.remove(e);
+			v2.decreaseOutDegree();
+			v1.decreaseInDegree();
+		} else {
+			throw new Exception("Vertices ou a aresta não existem!");
+		}
 	}
 	
 	/**
@@ -72,6 +99,8 @@ public abstract class GraphAsList extends Graph{
 	public void removeEdge(Edge e) throws Exception {
 		if(edgeList.contains(e)) {
 			edgeList.remove(e);
+			e.getVertexA().decreaseOutDegree();
+			e.getVertexB().decreaseInDegree();
 		} else {
 			throw new Exception("Aresta não existe!");
 		}
@@ -84,28 +113,9 @@ public abstract class GraphAsList extends Graph{
 			this.edgeList.clear();
 	}
 	
-	@Override
-	public boolean isConnected() {
-		// TODO Auto-generated method stub
-
-		//Falta implementar um algoritmo de busca em profundidade(Depth-first search).
-		
-		return false;
-	}
-	
-	@Override
-	public boolean isDirected() {
-		// TODO Auto-generated method stub
-		for(int i  =0; i< this.edgeList.size(); i++){
-			if(!this.edgeList.get(i).isEDirected())
-				return false;
-		}
-		return true;
-	}
-	
 	public Edge getEdge(Vertex v1, Vertex v2) {
 		// TODO Auto-generated method stub
-		for(int i =0; i < this.edgeList.size(); i++){
+		for(int i = 0; i < this.edgeList.size(); i++){
 			if(this.edgeList.get(i).getVertexA() == v1){
 				if(this.edgeList.get(i).getVertexB() == v2){
 					return this.edgeList.get(i);

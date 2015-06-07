@@ -5,7 +5,7 @@ package main.arc.domain;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
 public abstract class Vertex {
@@ -13,8 +13,11 @@ public abstract class Vertex {
 	// Identificador do vertice
 	protected int vertexID;
 	
-	// Grau do vertice
-	protected int vertexDegree;
+	// Grau de entrada do vertice
+	protected int vertexInDegree;
+
+	// Grau de saida do vertice
+	protected int vertexOutDegree;
 	
 	/**
 	 * Construtor padrão. Inicializa o vértice com o ID e degree = 0.
@@ -22,32 +25,51 @@ public abstract class Vertex {
 	 */
 	public Vertex(int vertexID) {
 		this.vertexID = vertexID;
-		this.vertexDegree = 0;
+		this.vertexInDegree = 0;
+		this.vertexOutDegree = 0;
 	}
 	
 	/**
-	 * Construtor que inicializa o vértice com o ID e degree especificados.
+	 * Construtor que inicializa todos os campos.
 	 * @param vertexID ID do vertice
-	 * @param vertexDegree Grau do vertice
+	 * @param vertexInDegree Grau de entrada do vertice
+	 * @param vertexOutDegree Grau de saida do vertice
 	 */
-	public Vertex(int vertexID, int vertexDegree) {
+	public Vertex(int vertexID, int vertexInDegree, int vertexOutDegree) {
 		this.vertexID = vertexID;
-		this.vertexDegree = vertexDegree;
+		this.vertexInDegree = vertexInDegree;
+		this.vertexOutDegree = vertexOutDegree;
 	}
 	
 	/**
-	 * Incrementa o grau do vértice em uma unidade.
+	 * Incrementa o grau de entrada do vértice em uma unidade.
 	 */
-	public void increaseDegree() {
-		this.vertexDegree += 1;
+	public void increaseInDegree() {
+		this.vertexInDegree += 1;
 	}
 	
 	/**
-	 * Decrementa o grau do vértice em uma unidade.
+	 * Decrementa o grau de entrada do vértice em uma unidade.
 	 */
-	public void decreaseDegree() {
-		if(this.vertexDegree - 1 >= 0) {
-			this.vertexDegree -= 1;
+	public void decreaseInDegree() {
+		if(this.vertexInDegree - 1 >= 0) {
+			this.vertexInDegree -= 1;
+		}
+	}
+	
+	/**
+	 * Incrementa o grau de saida do vértice em uma unidade.
+	 */
+	public void increaseOutDegree() {
+		this.vertexOutDegree += 1;
+	}
+	
+	/**
+	 * Decrementa o grau de saida do vértice em uma unidade.
+	 */
+	public void decreaseOutDegree() {
+		if(this.vertexOutDegree - 1 >= 0) {
+			this.vertexOutDegree -= 1;
 		}
 	}
 
@@ -59,14 +81,22 @@ public abstract class Vertex {
 		this.vertexID = vertexID;
 	}
 
-	public int getVertexDegree() {
-		return vertexDegree;
+	public int getVertexOutDegree() {
+		return vertexOutDegree;
 	}
 
-	public void setVertexDegree(int vertexDegree) {
+	public void setVertexOutDegree(int vertexDegree) {
 		if(vertexDegree >= 0) {
-			this.vertexDegree = vertexDegree;
+			this.vertexOutDegree = vertexDegree;
 		}
+	}
+
+	public int getVertexInDegree() {
+		return vertexInDegree;
+	}
+
+	public void setVertexInDegree(int vertexInDegree) {
+		this.vertexInDegree = vertexInDegree;
 	}
 
 }

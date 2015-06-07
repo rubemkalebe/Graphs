@@ -1,13 +1,13 @@
 package main.arc.domain;
 
-import main.arc.visitor.VisitorInterface;
+import main.arc.iterator.Iterator;
 
 /**
  * Interface para dígrafos.
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 01.06.2015
+ * @version 07.06.2015
  */
 
 public interface DigraphInterface {
@@ -18,8 +18,8 @@ public interface DigraphInterface {
 	public boolean isStronglyConnected();
 	
 	/**
-	 * Ordenação topológica do dígrafo (UMA possível ordem topológica).
-	 * @param vis Visitante
+	 * @return Iterador para UMA possível ordenação topológica do dígrafo
+	 * @throws Exception Caso haja ciclo na estrutura (evitando loops infinitos)
 	 */
-	public void topologicalOrderTraversal(VisitorInterface vis);
+	public Iterator topologicalOrderTraversal() throws Exception;
 }
