@@ -43,7 +43,7 @@ public class BestNetwork {
 																			// equivalente ao somatório de 1...n
 		Network tree = new Network(bestTree.getVertexMax(), bestTree.getDegreeMax());
 		Chronometer.start();
-		initializeLinkVector(link);
+		initializeLinkVector(link, tree);
 		combinations(link, bestTree.getVertexMax()-1, 0, tree); // Computa as combinações de arestas possíveis
 		Chronometer.stop();
 		executionTime = Chronometer.elapsedTime();
@@ -62,13 +62,22 @@ public class BestNetwork {
 	 * Inicializa vetor de conexões com todas as possíveis conexões entre as residências.
 	 * @param link Vetor de conexões
 	 */
-	private void initializeLinkVector(Edge[] link) {
+	private void initializeLinkVector(Edge[] link, Network tree) {
 		int countEdges = 0; // Índice da aresta
+		Residence[] rs = new Residence[bestTree.getVertexMax()];
+		for(int i = 0; i < bestTree.getVertexMax(); i++) {
+			rs[i] = new Residence(i+1);
+			try {
+				tree.addVertex(rs[i]);
+			} catch(Exception ex) {
+				// do nothing
+			}
+		}
 		for(int i = 0; i < bestTree.getVertexMax(); i++) {
 			for(int j = i; j < bestTree.getVertexMax(); j++) {
 				if(i != j) {
-					link[countEdges++] = new Edge(new Residence(i+1), 
-							new Residence(j+1), countEdges, costMatrix.getElement(i, j), false);
+					link[countEdges++] = new Edge(rs[i], rs[j],
+							countEdges, costMatrix.getElement(i, j), false);
 				}
 			}
 		}
@@ -84,7 +93,7 @@ public class BestNetwork {
 	private void combinations(Edge[] link, int size, int startPosition,
 			Network tree) {
 		if(size == 0) {
-			if((solutions == 0) || (tree.getTotalCost() < bestTree.getTotalCost())) {			
+			if((solutions == 0) || (tree.getTotalCost() < bestTree.getTotalCost())) {
 				bestTree.changeNetwork(tree);
 			}
 			solutions++;

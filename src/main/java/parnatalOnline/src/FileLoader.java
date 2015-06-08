@@ -53,6 +53,7 @@ public class FileLoader {
 		try {
 			Scanner scan = new Scanner(new FileReader(path));
 			if(scan.hasNextInt()) {
+				scan.nextInt();
 				if(scan.hasNextInt()) {
 					d = scan.nextInt();
 					scan.close();

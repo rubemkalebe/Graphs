@@ -27,10 +27,6 @@ public abstract class GraphAsList extends Graph {
 		edgeList = new ArrayList<Edge>();
 	}
 	
-	public ArrayList<Edge> getEdges(){
-		return this.edgeList;
-	}
-	
 	@Override
 	public void connectVertices(Vertex v1, Vertex v2) throws Exception{
 		// TODO Auto-generated method stub
@@ -60,10 +56,21 @@ public abstract class GraphAsList extends Graph {
 	 * @throws Exception se algum dos vértices não tiver presente na estrutura
 	 */
 	public void addEdge(Edge e) throws Exception {
-		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexB())) {
+		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexB()) &&
+				!super.vertices.contains(getEdge(e.getVertexA(), e.getVertexB()))) {
+			e.setEdgeID(this.edgeCounter);
 			this.edgeList.add(e);
 			e.getVertexA().increaseOutDegree();
 			e.getVertexB().increaseInDegree();
+			this.edgeCounter += 1;
+		} else {
+			throw new Exception("Vertices não existem!");
+		}
+		if(super.vertices.contains(e.getVertexA()) && super.vertices.contains(e.getVertexB()) &&
+				!super.vertices.contains(getEdge(e.getVertexB(), e.getVertexA()))) {
+			this.edgeList.add(new Edge(e.getVertexB(), e.getVertexA(), this.edgeCounter, false));
+			e.getVertexB().increaseOutDegree();
+			e.getVertexA().increaseInDegree();
 			this.edgeCounter += 1;
 		} else {
 			throw new Exception("Vertices não existem!");
@@ -101,6 +108,13 @@ public abstract class GraphAsList extends Graph {
 			edgeList.remove(e);
 			e.getVertexA().decreaseOutDegree();
 			e.getVertexB().decreaseInDegree();
+		} else {
+			throw new Exception("Aresta não existe!");
+		}
+		if(edgeList.contains(getEdge(e.getVertexB(), e.getVertexA()))) {
+			edgeList.remove(getEdge(e.getVertexB(), e.getVertexA()));
+			e.getVertexB().decreaseOutDegree();
+			e.getVertexA().decreaseInDegree();
 		} else {
 			throw new Exception("Aresta não existe!");
 		}

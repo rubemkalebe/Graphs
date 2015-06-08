@@ -41,10 +41,10 @@ public class Network extends GraphAsList {
 	 * @return true se ela pode/foi adicionada ou false, caso contrário
 	 */
 	public boolean addConnection(Edge e) {
-		if(((e.getVertexA().getVertexOutDegree() < degreeMax) && (e.getVertexB().getVertexOutDegree() < degreeMax))
+		if(((e.getVertexA().getVertexOutDegree() < degreeMax) && (e.getVertexB().getVertexInDegree() < degreeMax))
 				&& (!uf.same_component(e.getVertexA().getVertexID(), e.getVertexB().getVertexID()))) {
 			try {
-				this.addEdge(e);
+				addEdge(e);
 				totalCost += e.getEdgeCost();
 				uf.union(e.getVertexA().getVertexID(), e.getVertexB().getVertexID());
 				return true;
@@ -60,8 +60,8 @@ public class Network extends GraphAsList {
 	 */
 	public void removeConnection() {
 		try {
-			removeEdge(this.edgeList.get(this.edgeList.size() - 1));
-			totalCost -= edgeList.get(edgeList.size() - 1).getEdgeCost();
+			totalCost -= this.edgeList.get(this.edgeList.size() - 1).getEdgeCost();
+			this.removeEdge(this.edgeList.get(this.edgeList.size() - 1));
 		} catch(Exception ex) {
 			// do nothing
 		}
@@ -115,9 +115,7 @@ public class Network extends GraphAsList {
 	 * @param d Grau máximo de um vértice
 	 */
 	public void setDegreeMax(int d) {
-		if(degreeMax == 0) {
-			degreeMax = d;
-		}
+		degreeMax = d;
 	}
 	
 	public int getTotalCost() {
