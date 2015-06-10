@@ -15,8 +15,8 @@ import main.arc.domain.Graph;
  */
 
 public abstract class GraphDAO {
-	private GenerateXML gen;
-	private ReaderXML read;
+	protected GenerateXML gen;
+	protected ReaderXML read;
 	
 	/**
 	 * Método responsável por salvar um grafo
