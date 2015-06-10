@@ -26,20 +26,6 @@ public class MatrixEdgeIterator implements Iterator {
 	}
 	
 	/**
-	 * Retorna a primeira aresta da estrutura.
-	 * @return Primeira aresta
-	 */
-	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		if(this.adjMatrix.length > 0){
-			this.index++;
-			return this.adjMatrix[0][1];
-		}
-		return null;
-	}
-	
-	/**
 	 * 
 	 * @return true se ainda existem elementos a serem percorridos, false caso contrário
 	 */

@@ -1,17 +1,11 @@
 package main.arc.iterator;
 
-import main.arc.domain.GraphInterface;
+import main.arc.domain.Graph;
 
 public class TopologicalOrderIterator implements Iterator {
 
-	public TopologicalOrderIterator(GraphInterface g) {
+	public TopologicalOrderIterator(Graph g) {
 		
-	}
-	
-	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

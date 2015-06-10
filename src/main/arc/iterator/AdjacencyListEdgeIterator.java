@@ -12,12 +12,6 @@ public class AdjacencyListEdgeIterator implements Iterator {
 	}
 
 	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean hasNext() {
 		// TODO Auto-generated method stub
 		return false;

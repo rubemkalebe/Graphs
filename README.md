@@ -5,7 +5,6 @@ Desenvolvimento de framework para manipulação de grafos.
 
   O objetivo deste projeto é desenvolver um *framework* que facilite a manipulação de grafos, diminuindo os custos e acelerando o processo de desenvolvimento de aplicações que façam uso dessas estruturas. Essa facilidade é causada pelos seguintes requisitos:
 * disponibilizar funções para criação e edição de grafos, como: adicionar e remover vértices e arestas, e atribuir pesos;
-* disponibilizar funções para gerar grafos;
 * permitir extrair propriedades tais como o grafo ser completo, conexo ou desconexo, dentre outras;
 * disponibilizar um subconjunto de algoritmos clássicos, como: Dijkstra, Floyd-Warshall, Kruskal, ordenação topológica, busca em largura e busca em profundidade;
 * permitir persistir e carregar grafos.

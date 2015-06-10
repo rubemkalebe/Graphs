@@ -27,20 +27,6 @@ public class ListEdgeIterator implements Iterator {
 	}
 	
 	/**
-	 * Retorna a primeira aresta da estrutura.
-	 * @return Primeira aresta
-	 */
-	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		if(!this.edges.isEmpty()){
-			this.index++;
-			return this.edges.get(0);
-		}
-		return null;
-	}
-	
-	/**
 	 * 
 	 * @return true se ainda existem elementos a serem percorridos, false caso contrário
 	 */

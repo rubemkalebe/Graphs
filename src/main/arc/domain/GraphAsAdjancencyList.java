@@ -2,6 +2,7 @@ package main.arc.domain;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import main.arc.iterator.AdjacencyListEdgeIterator;
 
@@ -10,7 +11,7 @@ import main.arc.iterator.AdjacencyListEdgeIterator;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 07.06.2015
+ * @version 09.06.2015
  */
 
 public abstract class GraphAsAdjancencyList extends Graph {
@@ -31,7 +32,8 @@ public abstract class GraphAsAdjancencyList extends Graph {
 	//	Por padrão faz uma conexão simétrica: v1 -> v2 && v2 -> v1;
 	@Override
 	public void connectVertices(Vertex v1, Vertex v2) throws Exception {
-		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v1, v2)){
+		//if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v1, v2)){
+		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
 					this.listAdj.get(v1.getVertexID()).add(v1.getVertexOutDegree(), v2);
 					v1.increaseOutDegree();
 					v2.increaseInDegree();
@@ -40,7 +42,8 @@ public abstract class GraphAsAdjancencyList extends Graph {
 			throw new Exception("Conexão inválida! Vértices não existentes ou aresta já"
 					+ "inserida anteriormente");
 		}
-		if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v2, v1)){
+		//if(super.vertices.contains(v1) && super.vertices.contains(v2) && !isEdge(v2, v1)){
+		if(super.vertices.contains(v1) && super.vertices.contains(v2)){
 			this.listAdj.get(v2.getVertexID()).add(v2.getVertexOutDegree(), v1);
 			v2.increaseOutDegree();
 			v1.increaseInDegree();
@@ -100,6 +103,14 @@ public abstract class GraphAsAdjancencyList extends Graph {
 
 	public void setListAdj(ArrayList<LinkedList<Vertex>> listAdj) {
 		this.listAdj = listAdj;
+	}
+	
+	public List<Vertex> getNeighbors(Vertex v) throws Exception {
+		if(vertices.contains(v)) {
+			return listAdj.get(v.getVertexID());
+		} else {
+			throw new Exception("Vertice não existe!");
+		}		
 	}
 
 }

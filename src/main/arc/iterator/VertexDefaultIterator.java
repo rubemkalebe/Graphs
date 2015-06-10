@@ -39,16 +39,6 @@ public class VertexDefaultIterator implements Iterator {
 	}
 
 	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		if(!this.vertices.isEmpty()){
-			this.index++;
-			return this.vertices.get(this.index);
-		}
-		return null;
-	}
-
-	@Override
 	public Object next() {
 		// TODO Auto-generated method stub
 		if(this.index > this.vertices.size() || this.vertices.get(this.index) == null) {

@@ -1,6 +1,6 @@
 package main.arc.persistence;
 
-import main.arc.domain.GraphInterface;
+import main.arc.domain.Graph;
 
 /**
  * Classe padrão para carregar grafos.
@@ -19,7 +19,7 @@ public class GraphDefaultLoader implements GraphLoader {
 	 * @param path Caminho para o arquivo
 	 * @return O grafo construído a partir da leitura
 	 */
-	public GraphInterface loadFile(String path) {
+	public Graph loadFile(String path) {
 		return null; // ------
 	}
 	

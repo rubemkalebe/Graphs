@@ -1,6 +1,6 @@
 package main.arc.persistence;
 
-import main.arc.domain.GraphInterface;
+import main.arc.domain.Graph;
 
 /**
  * Interface para salvar grafos.
@@ -17,6 +17,6 @@ public interface GraphSaver {
 	 * @param g Grafo a ser salvo
 	 * @param path Caminho para onde arquivo devera ser salvo
 	 */
-	public void saveGraph(GraphInterface g, String path); 
+	public void saveGraph(Graph g, String path); 
 	
 }

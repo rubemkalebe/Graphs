@@ -5,16 +5,10 @@ package main.arc.iterator;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 03.06.2015
+ * @version 09.06.2015
  */
 
-public interface Iterator {	
-	
-	/**
-	 * Retorna a primeira aresta da estrutura.
-	 * @return Primeira aresta
-	 */
-	public Object first();
+public interface Iterator {
 	
 	/**
 	 * 

@@ -1,19 +1,13 @@
 package main.arc.iterator;
 
-import main.arc.domain.GraphInterface;
+import main.arc.domain.Graph;
 import main.arc.domain.Vertex;
 
 public class InOrderDFSIterator implements Iterator {
 
-	public InOrderDFSIterator(GraphInterface g, Vertex v) {
+	public InOrderDFSIterator(Graph g, Vertex v) {
 		// TODO Auto-generated constructor stub
 		
-	}
-	
-	@Override
-	public Object first() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

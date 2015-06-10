@@ -1,6 +1,7 @@
 package main.arc.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import main.arc.iterator.ListEdgeIterator;
 
@@ -9,7 +10,7 @@ import main.arc.iterator.ListEdgeIterator;
  * 
  * @author Pedro Coelho
  * @author Rubem Kalebe
- * @version 07.06.2015
+ * @version 09.06.2015
  */
 
 public abstract class GraphAsList extends Graph {
@@ -166,6 +167,20 @@ public abstract class GraphAsList extends Graph {
 
 	public void setEdgeCounter(int edgeCounter) {
 		this.edgeCounter = edgeCounter;
+	}
+	
+	public List<Vertex> getNeighbors(Vertex v) throws Exception {
+		List<Vertex> list = new ArrayList<Vertex>();
+		if(vertices.contains(v)) {
+			for(Edge e : edgeList) {
+				if(e.getVertexA() == v) {
+					list.add(e.getVertexB());
+				}
+			}
+		} else {
+			throw new Exception("Vertice não existe!");
+		}
+		return list;
 	}
 
 }
