@@ -1,4 +1,4 @@
-package main.java.byteland;
+package main.java.byteland.src;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
