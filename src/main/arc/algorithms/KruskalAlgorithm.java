@@ -1,7 +1,7 @@
 package main.arc.algorithms;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import main.arc.domain.Edge;
 import main.arc.domain.Graph;
@@ -12,9 +12,9 @@ import main.arc.domain.Vertex;
 
 public class KruskalAlgorithm {
 	
-	private static ArrayList<Edge> e;
+	private static ArrayList<Edge> e = new ArrayList<Edge>();
 	
-	private static ArrayList<Integer> ant;
+	private static ArrayList<Integer> ant = new ArrayList<Integer>();
 	
 	public static Graph kruskal(Graph g) {
 		if(g instanceof GraphAsList) {
@@ -38,7 +38,7 @@ public class KruskalAlgorithm {
 			}
 		}
 		e = new ArrayList<Edge>(g.getEdgeList());
-		Arrays.sort(e.toArray());
+		Collections.sort(e, Edge.AscendingWeight);
 		for(int i = 0; i < g.getVerticesNumber(); i++) {
 			ant.add(i, i);
 		}

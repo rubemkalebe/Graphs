@@ -1,5 +1,7 @@
 package main.arc.domain;
 
+import java.util.Comparator;
+
 /**
  * Classe que modela uma aresta.
  * 
@@ -124,5 +126,14 @@ public class Edge {
 	public void set_isDirected(boolean _isDirected) {
 		this._isDirected = _isDirected;
 	}
+	
+	public static Comparator<Edge> AscendingWeight = 
+			new Comparator<Edge>() {
+		
+			public int compare(Edge e1, Edge e2) {
+				return e1.edgeWeight - e2.edgeWeight;
+			}
+		
+	};
 	
 }
